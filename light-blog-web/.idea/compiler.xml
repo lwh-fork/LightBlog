@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="light-blog-web" />
         <module name="LightBlogWeb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="LightBlogWeb" target="1.8" />
+      <module name="light-blog-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

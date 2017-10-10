@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LightBlogWeb.iml" filepath="$PROJECT_DIR$/LightBlogWeb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/light-blog-web.iml" filepath="$PROJECT_DIR$/light-blog-web.iml" />
     </modules>
   </component>
 </project>

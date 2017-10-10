@@ -35,7 +35,7 @@
 
 <!-- 根据id获取用户信息 -->
 <select id="selectByPrimaryKey"  parameterType="java.lang.Long" resultMap="userResultMap">
-      select * from lb_user where id=#{id}
+      select * from lb_user where id = #{id}
 </select>
 
 <!-- 添加用户 -->

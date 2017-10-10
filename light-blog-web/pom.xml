@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.lightblog</groupId>
-  <artifactId>LightBlogWeb</artifactId>
+  <artifactId>light-blog-web</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>LightBlogWeb Maven Webapp</name>
@@ -201,6 +201,7 @@
       <version>1.3.2</version>
     </dependency>
 
+    <!-- lombok -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -230,7 +231,7 @@
   </dependencies>
 
   <build>
-    <finalName>LightBlogWeb</finalName>
+    <finalName>light-blog-web</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

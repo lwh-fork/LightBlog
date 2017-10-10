@@ -18,7 +18,7 @@
     <!-- 当proxy-target-class为false时使用JDK动态代理 -->
     <!-- 为true时使用cglib -->
     <!-- cglib无法拦截接口方法 -->
-    <aop:aspectj-autoproxy proxy-target-class="false" />
+    <!--<aop:aspectj-autoproxy proxy-target-class="false" />-->
 
     <!-- 将 springSwaggerConfig加载到spring容器 -->
     <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />

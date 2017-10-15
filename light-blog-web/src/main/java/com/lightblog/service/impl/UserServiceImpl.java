@@ -12,7 +12,6 @@ import java.util.List;
  * @Description:
  * @Author: Minsghan
  * @Date: Created in 16:07 2017/10/3
- * @Modified By:
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -60,5 +59,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserExist(User user) {
         return false;
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        User user = userDao.selectByUserName(userName);
+        return user;
     }
 }

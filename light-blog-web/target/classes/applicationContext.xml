@@ -13,8 +13,12 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
     <context:annotation-config/>
+    <!-- 扫描包 -->
     <context:component-scan base-package="com.lightblog.**.service.impl"></context:component-scan>
-    
+    <context:component-scan base-package="com.lightblog.**.manager"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.**.resolve"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.**.interceptor"></context:component-scan>
+
     <!-- 当proxy-target-class为false时使用JDK动态代理 -->
     <!-- 为true时使用cglib -->
     <!-- cglib无法拦截接口方法 -->
@@ -23,10 +27,11 @@
     <!-- 将 springSwaggerConfig加载到spring容器 -->
     <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" />
     <!-- 将自定义的swagger配置类加载到spring容器 -->
-    <bean class="com.lightblog.swagger.SwaggerConfig" />
+    <bean class="com.lightblog.config.SwaggerConfig" />
 
     <!-- 加载配置文件 -->
     <context:property-placeholder location="classpath*:*.properties" />
 
     <import resource="classpath*:spring-mybatis.xml"/>
+    <import resource="classpath*:spring-redis.xml"/>
 </beans>

@@ -1,4 +1,4 @@
-package com.lightblog.swagger;
+package com.lightblog.config;
 
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.models.dto.ApiInfo;
@@ -11,10 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
- * @Description:
+ * The configuration of swagger.
  * @Author: Minsghan
  * @Date: Created in 16:40 2017/10/3
- * @Modified By:
  */
 @Configuration
 @EnableWebMvc//如果没加这个会报错
@@ -48,8 +47,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo()
     {
         ApiInfo apiInfo = new ApiInfo(
-                "springmvc搭建swagger",
-                "spring-API swagger测试",
+                "Light Blog API",
+                "Light Blog-API swagger Test",
                 "My Apps API terms of service",
                 "499445428@qq.com",
                 "web app",

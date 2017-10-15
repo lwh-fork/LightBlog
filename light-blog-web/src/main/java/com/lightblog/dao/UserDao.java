@@ -6,5 +6,5 @@ import com.lightblog.model.User;
  *
  */
 public interface UserDao extends BaseDao<User> {
-
+    User selectByUserName(String userName);
 }

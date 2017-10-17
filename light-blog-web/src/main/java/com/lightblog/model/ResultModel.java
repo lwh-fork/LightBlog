@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class ResultModel implements Serializable {
     private static final long serialVersionUID = -3161231835832768735L;
 
+    private boolean success;
     private long code;
     private String message;
     private Object content;

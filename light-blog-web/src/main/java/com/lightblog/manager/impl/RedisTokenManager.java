@@ -2,34 +2,36 @@ package com.lightblog.manager.impl;
 
 import com.lightblog.config.Constants;
 import com.lightblog.manager.TokenManager;
-import com.lightblog.model.Token;
+import com.lightblog.model.TokenModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Description: The implement class of Token manager.
+ * The implement class of Token manager.
  * @Author: Minsghan
  * @Date: Created in 23:41 2017/10/13
- * @Modified By:
  */
 public class RedisTokenManager implements TokenManager {
     private static final Logger logger = LoggerFactory.getLogger(RedisTokenManager.class);
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<Long, String> redisTemplate;
 
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+    public void setRedisTemplate(RedisTemplate<Long, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
+        // 泛型设置成Long后必须更改对应的序列化方案
+        redisTemplate.setKeySerializer(new JdkSerializationRedisSerializer());
     }
 
     @Override
-    public Token creatToken(long userId) {
-        String tokenStr = UUID.randomUUID().toString().replace("_", "");
-        Token token = new Token(userId, tokenStr);
-        redisTemplate.boundValueOps (userId).set (token, Constants.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
-        return token;
+    public TokenModel creatToken(long userId) {
+        String token = UUID.randomUUID().toString().replace("-", "");
+        TokenModel model = new TokenModel(userId, token);
+        redisTemplate.boundValueOps(userId).set(token, Constants.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
+        return model;
     }
 
     @Override
@@ -38,28 +40,26 @@ public class RedisTokenManager implements TokenManager {
     }
 
     @Override
-    public boolean checkToken(Token token) {
-        if (token == null) {
+    public boolean checkToken(TokenModel model) {
+        if (model == null) {
             return false;
         }
-
-        Object source = redisTemplate.boundValueOps (token.getUserId()).get();
+        Object source = redisTemplate.boundValueOps(model.getUserId()).get();
         if (source == null) {
             return false;
         }
 
-        String tokenStr = source.toString();
-
-        if ("".equals(tokenStr) || !tokenStr.equals(token.getToken())) {
+        String token = source.toString();
+        if ("".equals(token) || !token.equals(model.getToken())) {
             return false;
         }
 
-        redisTemplate.boundValueOps(token.getUserId()).expire(Constants.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
-        return false;
+        redisTemplate.boundValueOps(model.getUserId()).expire(Constants.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
+        return true;
     }
 
     @Override
-    public Token getToken(String authorization) {
+    public TokenModel getToken(String authorization) {
         if (authorization == null || "".equals(authorization)) {
             return null;
         }
@@ -77,8 +77,8 @@ public class RedisTokenManager implements TokenManager {
             return null;
         }
 
-        String tokenStr = params[1];
-        Token token = new Token(userId, tokenStr);
-        return token;
+        String token = params[1];
+        TokenModel model = new TokenModel(userId, token);
+        return model;
     }
 }

@@ -38,6 +38,9 @@
       select * from lb_user where id = #{id}
 </select>
 
+<select id="selectByUserName" parameterType="java.lang.String" resultMap="userResultMap">
+      select * from lb_user where name = #{userName}
+</select>
 <!-- 添加用户 -->
 <insert id="insert" parameterType="com.lightblog.model.User">
     <!-- 主键值返回 -->
@@ -47,7 +50,6 @@
     
     insert into lb_user (name, password)
     values(#{name}, #{password})
-    
 </insert>
 
 <!-- 删除用户 -批量-->

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * @Author: Minsghan
  * @Date: Created in 19:29 2017/10/14
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CurrentUser {
 }

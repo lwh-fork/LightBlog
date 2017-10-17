@@ -13,15 +13,15 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Token implements Serializable {
+public class TokenModel implements Serializable {
     private static final long serialVersionUID = -4743364335923069447L;
 
     private long userId;
     private String token;
 
-    public Token() { }
+    public TokenModel() { }
 
-    public Token(long userId, String token) {
+    public TokenModel(long userId, String token) {
         this.userId = userId;
         this.token = token;
     }

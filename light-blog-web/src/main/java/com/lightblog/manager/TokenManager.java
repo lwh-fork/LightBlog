@@ -1,6 +1,6 @@
 package com.lightblog.manager;
 
-import com.lightblog.model.Token;
+import com.lightblog.model.TokenModel;
 
 /**
  * @Description: The manager of token with Redis.
@@ -15,7 +15,7 @@ public interface TokenManager {
      * @param userId
      * @return The model of Token.
      */
-    Token creatToken(long userId);
+    TokenModel creatToken(long userId);
 
     /**
      * Deteles the token of authorization.
@@ -28,12 +28,12 @@ public interface TokenManager {
      * @param token
      * @return
      */
-    boolean checkToken(Token token);
+    boolean checkToken(TokenModel token);
 
     /**
      * Gets the model of Token from authorization string.
      * @param authorization
      * @return The model of Token.
      */
-    Token getToken(String authorization);
+    TokenModel getToken(String authorization);
 }

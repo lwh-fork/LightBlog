@@ -1,5 +1,7 @@
 package com.lightblog.controller;
 
+import com.lightblog.config.Constants;
+import com.lightblog.model.ResultModel;
 import com.lightblog.model.User;
 import com.lightblog.service.UserService;
 import com.wordnik.swagger.annotations.Api;
@@ -16,122 +18,145 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 /**
- * @Description: The api of user.
+ * The api of user.
  * @Author: Minsghan
  * @Date: Created in 15:27 2017/10/3
  * @Modified By:
  */
-@Api(value="user")
+@Api(value="users")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController extends BaseController {
     @Autowired
     private UserService userService;
+    ResultModel result = new ResultModel();
 
     /**
-     * @Author: Mingshan
-     * @Description: Get list of user.
+     * Gets list of user.
      * @param:  null
      * @Date: 15:16 2017/10/3 
      */
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    @ApiOperation(value="获取所有用户信息", httpMethod="GET", notes="Get users", response=ResponseEntity.class)
-    public ResponseEntity<List<User>> listAllUsers() {
+    @RequestMapping(method = RequestMethod.GET)
+    @ApiOperation(value="获取所有用户信息", httpMethod="GET", notes="Get users")
+    public ResponseEntity<ResultModel> listAllUsers() {
         List<User> users = userService.findAll();
         if(users.isEmpty()){
             // You many decide to return HttpStatus.NOT_FOUND
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        result.setSuccess(true);
+        result.setMessage(Constants.RESPONSE_OK);
+        result.setContent(users);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
-     * @Author: Mingshan
-     * @Description: Get information of user by id.
+     * Gets information of user by id.
      * @param:  * @param id
      * @Date: 15:34 2017/10/3 
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value="获取用户信息", httpMethod="GET", notes="Get user by id", response=User.class)
-    public ResponseEntity<User> getUser(@ApiParam(required=true,value="用户ID",name="id")@PathVariable("id") long id) {
+    @ApiOperation(value="获取用户信息", httpMethod="GET", notes="Get user by id")
+    public ResponseEntity<ResultModel> getUser(@ApiParam(required=true,value="用户ID",name="id")
+                                               @PathVariable("id") long id) {
         logger.info("Fetching User with id " + id);
         User user = userService.findById(id);
         if (user == null) {
+            result.setSuccess(false);
+            result.setCode(1002);
+            result.setContent("User with id " + id + " not found");
             logger.info("User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        result.setSuccess(true);
+        result.setMessage(Constants.RESPONSE_OK);
+        result.setContent(user);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**
-     * @Author: Mingshan
-     * @Description: Create a user.
+     * Creates a user.
      * @param:  * @param null
      * @Date: 15:34 2017/10/3 
      */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ApiOperation(value="新增用户", httpMethod="POST", notes="Create user", response=ResponseEntity.class)
-    public ResponseEntity<Void> createUser(@ApiParam(required=true,value="用户信息",name="User")
-                                               @RequestBody User user, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(method = RequestMethod.POST)
+    @ApiOperation(value="新增用户", httpMethod="POST", notes="Create user")
+    public ResponseEntity<ResultModel> createUser(@ApiParam(required=true,value="用户信息",name="User")
+                                                  @RequestBody User user, UriComponentsBuilder ucBuilder) {
         logger.info("Creating User " + user.getName());
 
         if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getName() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            result.setSuccess(false);
+            result.setCode(1003);
+            result.setContent("A User with name " + user.getName() + " already exist");
+            logger.info("A User with name " + user.getName() + " already exist");
+            return new ResponseEntity<>(result, HttpStatus.CONFLICT);
         }
 
         userService.insert(user);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        result.setSuccess(true);
+        result.setMessage(Constants.RESPONSE_OK);
+        result.setContent(user);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
     
     /**
-     * @Author: Mingshan
-     * @Description: Update a user.
+     * Updates a user.
      * @param:  * @param null
      * @Date: 15:33 2017/10/3 
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ApiOperation(value="更新用户信息", httpMethod="PUT", notes="Update user", response=User.class)
-    public ResponseEntity<User> updateUser(@ApiParam(required=true,value="用户ID",name="id")@PathVariable("id") long id,
-                                           @RequestBody User user) {
-        logger.info("Updating User " + id);
+    @RequestMapping(method = RequestMethod.PUT)
+    @ApiOperation(value="更新用户信息", httpMethod="PUT", notes="Update user")
+    public ResponseEntity<ResultModel> updateUser(@RequestBody User user) {
+        logger.info("Updating User " + user);
 
-        User currentUser = userService.findById(id);
+        User currentUser = userService.findById(user.getId());
 
         if (currentUser == null) {
-            logger.info("User with id " + id + " not found");
-            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+            result.setSuccess(false);
+            result.setCode(1004);
+            result.setContent("User with id " + user.getId() + " not found");
+            logger.info("User with id " + user.getId() + " not found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         currentUser.setName(user.getName());
         currentUser.setAge(user.getAge());
 
         userService.update(currentUser);
-        return new ResponseEntity<User>(currentUser, HttpStatus.OK);
+        result.setSuccess(true);
+        result.setMessage(Constants.RESPONSE_OK);
+        result.setContent(currentUser);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
     /**
-     * @Author: Mingshan
-     * @Description: Delete a user by id.
+     * Deletes a user by id.
      * @param:  * @param null
      * @Date: 15:32 2017/10/3 
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(value="删除用户", httpMethod="DELETE", notes="Delete user by id", response=ResponseEntity.class)
-    public ResponseEntity<Void> deleteUser(@ApiParam(required=true,value="用户ID",name="id")@PathVariable("id") long id) {
+    @ApiOperation(value="删除用户", httpMethod="DELETE", notes="Delete user by id")
+    public ResponseEntity<ResultModel> deleteUser(@ApiParam(required=true, value="用户ID", name="id")
+                                                  @PathVariable("id") long id) {
         logger.info("Fetching & Deleting User with id " + id);
 
         User user = userService.findById(id);
         if (user == null) {
+            result.setSuccess(false);
+            result.setCode(1005);
+            result.setContent("Unable to delete. User with id " + id + " not found");
             logger.info("Unable to delete. User with id " + id + " not found");
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         userService.delete(id);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        result.setSuccess(true);
+        result.setMessage(Constants.RESPONSE_OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

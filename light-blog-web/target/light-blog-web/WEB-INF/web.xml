@@ -37,7 +37,6 @@
     </param-value>
   </context-param>
 
-
   <listener>
     <listener-class>
       org.springframework.web.util.IntrospectorCleanupListener

@@ -6,7 +6,7 @@ Provides API in the background, and the API is RESTful style, please have a good
 ----------
 ## light-blog-ui
 
-> Front end UI for Ligth Blog
+> Front end UI for Light Blog
 
 ### Build Setup
 
@@ -21,6 +21,15 @@ npm run dev
 npm run build
 
 ```
+----------
+
+## light-blog-web
+You need to install requisite softwares, as follows:
+1. Redis
+2. JDK 1.8
+3. Maven
+4. IDEA
+
 ----------
 
 ## License

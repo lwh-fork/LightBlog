@@ -14,10 +14,11 @@
 
     <context:annotation-config/>
     <!-- 扫描包 -->
-    <context:component-scan base-package="com.lightblog.**.service.impl"></context:component-scan>
     <context:component-scan base-package="com.lightblog.**.manager"></context:component-scan>
     <context:component-scan base-package="com.lightblog.**.resolve"></context:component-scan>
     <context:component-scan base-package="com.lightblog.**.interceptor"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.**.handler"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.**.service.impl"></context:component-scan>
 
     <!-- 当proxy-target-class为false时使用JDK动态代理 -->
     <!-- 为true时使用cglib -->

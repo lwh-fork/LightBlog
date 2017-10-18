@@ -3,6 +3,8 @@ package com.lightblog.controller;
 import com.lightblog.annotation.Authorization;
 import com.lightblog.annotation.CurrentUser;
 import com.lightblog.config.Constants;
+import com.lightblog.exception.ParameterException;
+import com.lightblog.exception.ServerException;
 import com.lightblog.manager.TokenManager;
 import com.lightblog.model.ResultModel;
 import com.lightblog.model.TokenModel;
@@ -16,7 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * The API of token for login and logout.
@@ -46,25 +51,19 @@ public class TokenController extends BaseController {
         ResultModel result = new ResultModel();
 
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
-            result.setSuccess(false);
-            result.setCode(1000);
-            result.setMessage("UserName or password is empty.");
-            logger.info("UserName or password is empty.");
-            return new ResponseEntity<ResultModel>(HttpStatus.BAD_REQUEST);
+            throw new ParameterException("UserName or password is empty.");
         }
 
         User user = userService.findByUserName(userName);
 
         if (user == null || !password.equals(user.getPassword())) {
-            result.setSuccess(false);
             result.setCode(1001);
             result.setMessage("UserName or password is incorrect.");
             logger.info("UserName or password is incorrect.");
-            return new ResponseEntity<ResultModel>(result, HttpStatus.NOT_FOUND);
+            throw new ServerException(result);
         }
-
+        
         TokenModel token = tokenManager.creatToken(user.getId());
-        result.setSuccess(true);
         result.setMessage(Constants.RESPONSE_OK);
         result.setContent(token);
         return new ResponseEntity<ResultModel>(result, HttpStatus.OK);
@@ -85,7 +84,6 @@ public class TokenController extends BaseController {
     public ResponseEntity<ResultModel> logout(@CurrentUser User user) {
         tokenManager.deleteToken(user.getId());
         ResultModel result = new ResultModel();
-        result.setSuccess(true);
         result.setMessage(Constants.RESPONSE_OK);
         return new ResponseEntity<ResultModel>(result, HttpStatus.OK);
     }

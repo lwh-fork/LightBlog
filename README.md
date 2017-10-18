@@ -2,6 +2,7 @@
 
 A light blog with Java and Vue.js.
 Provides API in the background, and the API is RESTful style, please have a good understanding of RESTful API.
+
 ----------
 ## light-blog-ui
 

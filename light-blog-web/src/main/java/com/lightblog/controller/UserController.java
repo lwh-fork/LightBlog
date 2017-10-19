@@ -1,5 +1,6 @@
 package com.lightblog.controller;
 
+import com.lightblog.exception.ServerException;
 import com.lightblog.model.ResultModel;
 import com.lightblog.model.User;
 import com.lightblog.service.UserService;
@@ -55,13 +56,14 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value="获取用户信息", httpMethod="GET", notes="Get user by id")
     public ResponseEntity<User> getUser(@ApiParam(required=true,value="用户ID",name="id")
-                                               @PathVariable("id") long id) {
+                                        @PathVariable("id") long id) {
         logger.info("Fetching User with id " + id);
         User user = userService.findById(id);
         if (user == null) {
-
+            result.setCode(1021);
+            result.setMessage("User with id " + id + " not found");
             logger.info("User with id " + id + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ServerException(result, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -79,9 +81,10 @@ public class UserController extends BaseController {
         logger.info("Creating User " + user.getName());
 
         if (userService.isUserExist(user)) {
-
+            result.setCode(1022);
+            result.setMessage("A User with name " + user.getName() + " already exist");
             logger.info("A User with name " + user.getName() + " already exist");
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            throw new ServerException(result, HttpStatus.CONFLICT);
         }
 
         userService.insert(user);
@@ -105,8 +108,10 @@ public class UserController extends BaseController {
         User currentUser = userService.findById(user.getId());
 
         if (currentUser == null) {
+            result.setCode(1023);
+            result.setMessage("User with id " + user.getId() + " not found");
             logger.info("User with id " + user.getId() + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ServerException(result, HttpStatus.NOT_FOUND);
         }
 
         currentUser.setName(user.getName());
@@ -129,9 +134,10 @@ public class UserController extends BaseController {
 
         User user = userService.findById(id);
         if (user == null) {
-
+            result.setCode(1024);
+            result.setMessage("Unable to delete. User with id " + id + " not found");
             logger.info("Unable to delete. User with id " + id + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ServerException(result, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

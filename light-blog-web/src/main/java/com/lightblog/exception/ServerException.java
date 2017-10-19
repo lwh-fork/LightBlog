@@ -1,7 +1,6 @@
 package com.lightblog.exception;
 
 import com.lightblog.model.ResultModel;
-import org.springframework.http.HttpStatus;
 
 /**
  * The exception of server.
@@ -12,20 +11,14 @@ import org.springframework.http.HttpStatus;
 public class ServerException extends RuntimeException {
     private static final long serialVersionUID = -8183259784734482522L;
     private ResultModel result;
-    private HttpStatus httpStatus;
 
     public ServerException() { }
 
-    public ServerException(ResultModel result, HttpStatus httpStatus) {
+    public ServerException(ResultModel result) {
         this.result = result;
-        this.httpStatus = httpStatus;
     }
 
     public ResultModel getResult() {
         return this.result;
-    }
-
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
     }
 }

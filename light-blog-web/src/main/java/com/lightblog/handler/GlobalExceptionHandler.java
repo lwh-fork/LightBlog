@@ -19,14 +19,14 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(ParameterException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST) // #issue 01
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST) // #issue 2
     @ResponseBody
     public String handleInvalidRequestError(ParameterException ex) {
         return ex.getMessage();
     }
 
     @ExceptionHandler(ServerException.class)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT) // #issue 02
+    @ResponseStatus(value = HttpStatus.NO_CONTENT) // #issue 2
     @ResponseBody
     public ResultModel handleServiceException(ServerException ex) {
         return ex.getResult();

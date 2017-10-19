@@ -9,8 +9,7 @@ public class ParameterException extends RuntimeException {
     private static final long serialVersionUID = -7235137272015389906L;
     private String message;
 
-    public ParameterException() {
-    }
+    public ParameterException() { }
 
     public ParameterException(String message) {
         super(message);

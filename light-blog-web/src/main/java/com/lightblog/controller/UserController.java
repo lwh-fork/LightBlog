@@ -1,5 +1,6 @@
 package com.lightblog.controller;
 
+import com.lightblog.exception.ServerException;
 import com.lightblog.model.ResultModel;
 import com.lightblog.model.User;
 import com.lightblog.service.UserService;
@@ -59,9 +60,10 @@ public class UserController extends BaseController {
         logger.info("Fetching User with id " + id);
         User user = userService.findById(id);
         if (user == null) {
-
+            result.setCode(1001);
+            result.setMessage("User with id " + id + " not found");
             logger.info("User with id " + id + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new ServerException(result);
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);

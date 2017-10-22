@@ -36,9 +36,12 @@ public class UserController extends BaseController {
      * @param:  null
      * @Date: 15:16 2017/10/3 
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/{page}/{per_page}",method = RequestMethod.GET)
     @ApiOperation(value="获取所有用户信息", httpMethod="GET", notes="Get users")
-    public ResponseEntity<List<User>> listAllUsers() {
+    public ResponseEntity<List<User>> listAllUsers(@PathVariable("page") Integer page,
+                                                   @PathVariable("per_page") Integer perPage) {
+        logger.info("page = " + page + "per_page = " + perPage);
+
         List<User> users = userService.findAll();
         if(users.isEmpty()){
             // You many decide to return HttpStatus.NOT_FOUND

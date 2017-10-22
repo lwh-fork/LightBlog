@@ -1,5 +1,6 @@
 package com.lightblog.dao;
 
+import com.common.dao.BaseDao;
 import com.lightblog.model.Article;
 
 /**

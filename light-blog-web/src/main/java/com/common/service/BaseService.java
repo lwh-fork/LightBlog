@@ -1,4 +1,4 @@
-package com.lightblog.service;
+package com.common.service;
 
 import java.util.List;
 

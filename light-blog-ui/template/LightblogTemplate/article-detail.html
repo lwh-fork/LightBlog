@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/gototop.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/mark.css" />
+		<style type="text/css">
+		/*左内容区*/
+		.main-left {
+			min-width: 1000px;
+			margin-bottom: 40px;
+		}
+		.main-left .article-detail .article-title {
+			text-decoration: none;
+			color: #2D2F33;
+			font-size: 25px;
+		}
+		
+		.main-left .article-detail .article-title:hover {
+			text-decoration: underline;
+		}
+		
+		.main-left .article-detail .post-info {
+			color: #878D99;
+			font-size: 14px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		
+		.main-left .article-detail .post-info img {
+			position: relative;
+			top: 2px;
+			margin-right: 3px;
+		}
+		
+		.main-left .article-detail .post-info > span:not(:first-child) {
+			margin-left: 15px;	
+		}
+		.main-left .article-detail .post-info .go-comment a {
+			color: #878D99;
+		}
+		.main-left .article-detail .article-content {
+			margin-top: 40px;
+		}
+		.main-left .comment-info {
+			margin-top: 40px;
+			color: #878D99;
+		}
+		.main-left .comment-info .comment-count > i {
+			color: #2D2F33;
+		}
+		.main-left .comment-info .select-status {
+			float: right;
+			position: relative;
+			top: -30px;
+		}
+		
+		.main-left .comment-info .comment-list {
+			margin-top: 0px;
+		}
+		.main-left .comment-info .comment-list .comment-item {
+			min-width: 1000px;
+			border: 1px solid #DFE4ED;
+			border-radius: 3px;
+			
+		}
+		.main-left .comment-info .comment-list .comment-item:not(:first-child) {
+			margin-top: 20px;
+		}
+		.comment-info .comment-list .comment-item .comment-head {
+			background: #F7F7F7;
+			height: 40px;
+			line-height: 40px;
+		}
+		.comment-info .comment-list .comment-item .comment-head > span {
+			margin-left: 10px;
+		}
+		.comment-info .comment-list .comment-item .comment-head > span:not(first-child) {
+			margin-left: 20px;
+		}
+	    .comment-list .comment-item .comment-head .post-time {
+	    	float: right;
+	    	margin-right: 10px;
+	    }
+	    .comment-list .comment-item .comment-head .username {
+	    	color: #A52A2A;;
+	    }
+	    .comment-list .comment-item .content {
+	    	min-height: 50px;
+	    	line-height: 50px;
+	    	padding-left: 10px;
+	    	color: #2D2F33;
+	    }
+	    .comment-list .comment-item .replay-info {
+	    	background: #FFFBDB;
+	    	min-height: 50px;
+	    	width: 980px;
+	    	margin: 0 auto;
+	    	margin-bottom: 10px;
+	    	border: 1px solid #FFFBDB;
+	    	border-radius: 3px;
+	    }
+	    .comment-item .replay-info .replay-info-head {
+	    	padding: 10px;
+	    }
+	    .comment-item .replay-info .replay-info-head > span:first-child {
+	    	color: #409EFF;
+	    }
+	    .comment-item .replay-info .replay-info-head > span:last-child {
+	    	color: #878D99;
+	    }
+	    .comment-item .replay-info .replay-info-head > span:not(:first-child) {
+	    	margin-left: 5px;
+	    }
+	    .comment-item .replay-info .replay-content {
+	    	padding: 10px;
+	    	margin-top: -10px;
+	    	color: #5A5E66;
+	    }
+	    .comment-info .page-bar {
+	    	margin-top: 20px;
+	    }
+	    .comment-info .add-comment-flag {
+	    	display: block;
+	    	margin-top: 10px;
+	    	margin-bottom: 10px;
+	    	font-weight: bold;
+	    	font-size: 16px;
+	    }
+	    .comment-info .add-comment-flag > img {
+	    	position: relative;
+	    	top: 3px;
+	    }
+	    .comment-info .add-comment {
+	    	margin-top: 10px;
+	    	border: 1px solid #DFE4ED;
+	    	padding: 10px;
+	    	margin-bottom: 10px;
+	    }
+	    
+	    .dixian {  
+		   height: 30px;  
+		   line-height: 30px;  
+		   text-align: center;  
+		}  
+		.dixian .line {  
+		   display: inline-block;  
+		   width: 424px;  
+		   border-top: 1px solid #DFE4ED ;  
+		}  
+		.dixian .txt {  
+		   color: #B4BCCC;  
+		   vertical-align: middle; 
+		   font-size: 14px; 
+		}  
+		</style>
+	</head>
+	<body>
+		<div id="app">
+		 	<!-- 头部导航 -->
+		    <header class="header" :class="{ 'header-fixed' : headerFixed }">
+			    <div class="header-content">
+			    <span class="header-title">{ Mingshan 的博客 }</span>	    
+			    <el-row>
+			        <el-col :span="24">			          
+			          <el-menu default-active="0" class="el-menu-demo" mode="horizontal" @select="">
+			            <el-menu-item index="1"><a href="index.html">首页</a></el-menu-item>
+			            <el-menu-item index="2"><a href="随笔.html">随笔</a></el-menu-item>
+			            <el-menu-item index="3"><a href="归档.html">归档</a></el-menu-item>
+			            <el-menu-item index="4"><a href="标签.html">标签</a></el-menu-item>
+			            <el-menu-item index="5"><a href="关于.html">关于</a></el-menu-item>
+			          </el-menu>
+			        </el-col>
+			    </el-row>
+			    </div>
+		    </header>
+		    <div v-show="headerFixed" style="position: relative;height: 60px;width: 100%;"></div>
+
+			<main>
+            <!-- 左侧 -->
+	        <div class="main-left">
+	        	<!--文章的详细内容-->
+	        	<div class="article-detail">
+	        		<center>
+	        		<span class="article-title">
+	        			谈谈基于ZooKeeper的分布式锁
+	        		</span>
+	        		<div class="post-info">
+        				<span class="post-time"><img src="img/发表.png"><i>发表于 2017-10-08</i></span>
+        				<span class="post-time"><img src="img/归档.png"><i>归档于 Java</i></span>
+        				<span class="post-time go-comment"><a href="#comment-info" title="跳转至评论区"><img src="img/评论(文章).png"><i>8</i></a></span>
+	        		</div>
+	        		</center>
+	        		<div class="article-content vs">
+<!--S test文件-->
+<h1 id="node-">Node服务器端开发第四天</h1>
+<blockquote>
+<p>文件流、网络操作、服务端Web开发基础</p>
+</blockquote>
+<h2 id="-">文件操作</h2>
+<h3 id="-">文件监视</h3>
+<h4 id="-markdown-">利用文件监视实现自动 markdown 文件转换</h4>
+<ul>
+<li><p>相关链接：</p>
+<ol>
+<li><a href="https://github.com/chjj/marked">https://github.com/chjj/marked</a></li>
+<li><a href="https://github.com/Browsersync/browser-sync">https://github.com/Browsersync/browser-sync</a> </li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>实现思路：<ol>
+<li>利用<code>fs</code>模块的文件监视功能监视指定MD文件</li>
+<li>当文件发生变化后，借助<code>marked</code>包提供的<code>markdown</code> to <code>html</code>功能将改变后的MD文件转换为HTML</li>
+<li>再将得到的HTML替换到模版中</li>
+<li>最后利用BrowserSync模块实现浏览器自动刷新
+browsersync需要用到Python</li>
+</ol>
+</li>
+</ul>
+<pre><code class="lang-javascript">const fs = require(&#39;fs&#39;);
+
+</code></pre>
+<hr>
+<h2 id="-">文件流</h2>
+<h3 id="-">什么是流</h3>
+<p><img src="./img/01.png" alt="二进制的世界"></p>
+<ul>
+<li><p>现实过程的流</p>
+<ul>
+<li>水流，人流</li>
+</ul>
+</li>
+<li><p>在程序开发的概念中</p>
+<ul>
+<li>流是程序输入或输出的一个连续的字节序列</li>
+<li>文件流、网络流</li>
+<li>设备(例如鼠标、键盘、磁盘、屏幕、调制解调器和打印机)的输入和输出都是用流来处理的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="node-">Node中的流操作</h3>
+<p><img src="./img/02.png" alt="流的操作"></p>
+<p>在 Node 核心模块 fs 中定义了一些与流相关的 API</p>
+<ul>
+<li>fs.createReadStream()<ul>
+<li>=&gt; 得到一个ReadableStream</li>
+</ul>
+</li>
+<li>fs.createWriteStream()<ul>
+<li>=&gt; 得到一个WritableStream</li>
+</ul>
+</li>
+</ul>
+<h3 id="-api">读取流常用 API</h3>
+<h4 id="event-">Event：</h4>
+<ul>
+<li>data</li>
+<li>end</li>
+<li>error</li>
+</ul>
+<h4 id="method-">Method：</h4>
+<ul>
+<li>read([size])、</li>
+<li>pause()、</li>
+<li>isPause()、</li>
+<li>resume()、</li>
+<li>setEncoding(encoding)、</li>
+<li>pipe(destination[, options])、</li>
+<li>unpipe([destination])</li>
+</ul>
+<h3 id="-api">写入流常用 API</h3>
+<h4 id="event-">Event:</h4>
+<ul>
+<li>error</li>
+<li>pipe</li>
+</ul>
+<h4 id="method-">Method：</h4>
+<ul>
+<li>write(chunk[, encoding][, callback])</li>
+<li>end([chunk][, encoding][, callback])</li>
+<li>setDefaultEncoding(encoding)</li>
+</ul>
+<!--E test文件-->
+	        		</div>
+	        	</div>
+				<!--文章的详细内容-->
+				
+				<!--评论信息-->
+				<div class="comment-info" id="comment-info">
+					<div>
+						<div class="comment-count">
+							共 <i>3</i> 条评论
+						</div>
+						<div class="select-status">
+							<el-select v-model="value" placeholder="请选择">
+							    <el-option
+							      v-for="item in options"
+							      :key="item.value"
+							      :label="item.label"
+							      :value="item.value">
+							    </el-option>
+							 </el-select>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<!--S 评论列表-->
+					<div class="comment-list">
+						<div class="comment-item">
+							<div class="comment-head">
+								<span class="order">#1</span>
+								<span class="username">Mingshan</span>
+								<span class="address">河南郑州</span>
+								<span class="post-time">2017-07-10</span>
+							</div>
+							<div class="content">
+								很清晰易懂！拜读了！
+							</div>
+						</div>
+						
+						<div class="comment-item">
+							<div class="comment-head">
+								<span class="order">#1</span>
+								<span class="username">Mingshan</span>
+								<span class="address">河南郑州</span>
+								<span class="post-time">2017-07-10</span>
+							</div>
+							<div class="content">
+								很清晰易懂！拜读了！
+							</div>
+							<!--回复内容，不一定显示-->
+							<div class="replay-info">
+								<div class="replay-info-head">
+									<span>明山</span>
+									<span>回复于</span> 
+									<span>2017-09-10</span>
+								</div>
+								<div class="replay-content">
+									IE9+ 之前公司前端业务一直在用没发现什么问题。
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--E 评论列表-->
+					<div class="page-bar">
+						<center>
+							<el-pagination
+							    layout="prev, pager, next"
+							    :total="50">
+							</el-pagination>
+						</center>
+					</div>
+					
+					<span class="add-comment-flag"><img src="img/我要评论.png"/> 我要评论</span>
+					<!--S 添加评论-->
+					<div class="add-comment">
+						
+						<el-form ref="form" :model="form" label-width="80px">
+						  <el-form-item label="评论内容">
+						    <el-input type="textarea" v-model="form.desc"></el-input>
+						  </el-form-item>
+						  <el-form-item label="用户昵称">
+						    <el-input v-model="form.name"></el-input>
+						  </el-form-item>
+						  
+						  
+						  <el-form-item label="是否匿名">
+						    <el-switch v-model="form.delivery"></el-switch>
+						  </el-form-item>
+						  
+						  <el-form-item label="电子邮件(选填)">
+						    <el-input v-model="form.name"></el-input>
+						  </el-form-item>
+						  <el-form-item label="个人网站(选填)">
+						    <el-input v-model="form.name"></el-input>
+						  </el-form-item>
+						  
+						  
+						  <el-form-item>
+						    <el-button type="primary" @click="onSubmit">点击评论</el-button>
+						    <el-button>取消</el-button>
+						  </el-form-item>
+						</el-form>
+					</div>
+					<!--E 添加评论-->
+				</div>
+				
+				<!--底线-->
+	    		<div class="dixian">  
+				   <span style="white-space:pre">   </span><span class="line"></span>  
+				   <span style="white-space:pre">   </span><span class="txt">别看了，我是有底线的</span>  
+				   <span style="white-space:pre">   </span><span class="line"></span>  
+				</div> 
+	       </div> 
+    	</main>
+		<!--GO TO TOP-->
+		<div class="go-top">
+	        <div class="arrow"></div>
+	        <div class="stick"></div>
+    	</div>
+    	
+		</div>
+	</body>
+	
+	<!-- 先引入 Vue -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui@next/lib/theme-chalk/index.css">
+  	<!-- 引入组件库 -->
+  	<script src="https://unpkg.com/element-ui@next/lib/index.js"></script>
+  	<script src="https://cdn.bootcss.com/jquery/1.11.0-rc1/jquery.min.js"></script>
+  	<script>
+  	jQuery.noConflict();
+    
+    (function($){
+         //在匿名函数里使用$作为jQuery别名,不影响全局
+         $(function() {
+		    $(window).scroll(function() {
+		        if ($(window).scrollTop() > 100)
+		            $('.go-top').show();
+		        else
+		            $('.go-top').hide();
+		    });
+		    $('.go-top').click(function() {
+		        $('html, body').animate({scrollTop: 0}, 1000);
+		    });
+		    // 锚点跳转
+		    $(".go-comment > a").click(function(){
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var $target = $(this.hash);
+                    $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
+                    if ($target.length) {
+                        var targetOffset = $target.offset().top;
+                    $('html,body').animate({scrollTop: targetOffset},800);
+                    return false;
+                    }
+                }
+            });
+		});
+	})(jQuery);
+  		
+    new Vue({
+      el: '#app',
+      data: function (){
+	    return {
+	      active:true,
+	      headerFixed : true,
+	      fullscreenLoading: false,
+	      currentDate: (new Date()).toLocaleDateString(),
+	      options: [{
+	          value: '选项1',
+	          label: '最新评论'
+	      }, {
+	          value: '选项2',
+	          label: '最早评论'
+	      }],
+	      value: '选项1',
+	      form: {
+	          name: '',
+	          region: '',
+	          date1: '',
+	          date2: '',
+	          delivery: false,
+	          type: [],
+	          resource: '',
+	          desc: ''
+	      }
+
+	    }
+	  },
+	  methods: {
+	      onSubmit() {
+	        console.log('submit!');
+	      }
+      }
+    })
+  	</script>
+</html>

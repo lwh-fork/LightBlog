@@ -1,0 +1,193 @@
+body{
+	margin: 0;
+}
+#app {
+  min-width: 1000px;
+  margin: 0 auto;
+  font-family: "Microsoft YaHei";
+}
+/* 头部导航 */
+header{
+	z-index: 1000;
+	min-width: 1000px;
+	transition: all 0.5s ease;
+	border-top: solid 4px #3091F2;
+	background-color: #fff;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.12),0 0 6px 0 rgba(0,0,0,.04);
+}
+
+header .header-content {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+header.header-fixed{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+header .el-menu-demo{
+	float: right;
+	padding-left: 300px!important;
+	
+}
+header .el-menu-demo a {
+	display: inline-block;
+	text-decoration: none;
+	height: 60px;
+}
+
+header .header-title {
+	position: absolute;
+	top: 18px;
+	text-decoration: none;
+	font-weight: bolder;
+	font-size: 20px;
+	color: #2D2F33;
+}
+
+/* 主内容区 */
+main{ 
+	width:1000px;
+	margin: 0 auto;
+	margin-top: 40px;
+	min-height: 1300px;  
+}
+main .main-left{
+	float: left;
+	width: 660px;
+	min-height: 1300px;
+	margin-right: 35px;
+	margin-bottom: 20px;
+}
+main .main-right{
+	float: left;
+	width: 300px;
+	/*border: 1px solid #E6EBF5;*/
+	min-height: 800px;
+}
+main .el-menu{
+	background-color: transparent!important;
+}
+
+/*左内容区*/
+
+
+/*右内容区*/
+.main-right .hot-article-comment {
+	margin-top: 20px;
+	
+}
+
+.main-right .hot-article-list {
+	margin-top: 10px;
+}
+.main-right .hot-article-list .hot-article-item {
+	padding-bottom: 15px;
+	border-bottom: 1px dashed #99A9BF;
+}
+
+.hot-article-list .hot-article-item .view-comment-count {
+	margin-top: 15px;
+}
+
+.view-comment-count span:first-child {
+	margin-right: 10px;
+}
+.view-comment-count i {
+	color: #878D99;
+}
+
+.hot-article-list .hot-article-item .view-comment-content {
+	margin-top: 5px;	
+}
+.hot-article-list .hot-article-item .view-comment-content a {
+	text-decoration: none;
+	color: #409EFF;
+}
+.hot-article-list .hot-article-item .view-comment-content a:hover {
+	text-decoration: underline;
+}
+.new-comment-list {
+	margin-top: 10px;
+}
+.new-comment-list .new-comment-item {
+	margin-top: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px dashed #99A9BF;
+}
+
+.new-comment-list .new-comment-item a {
+	text-decoration: none;
+}
+.new-comment-list .new-comment-item .user-name {
+	color: #A52A2A;
+}
+.new-comment-list .new-comment-item .article-title {
+	color: #20A0FF;
+}
+.new-comment-list .new-comment-item .comment-summary {
+	color: #B4BCCC;
+}
+
+.friend-link {
+	margin-top: 20px;
+	
+}
+.friend-link > span {
+	color: #5A5E66;
+}
+.friend-link .friend-link-list {
+	list-style-image: url(img/链接.png);
+}
+.friend-link .friend-link-list a {
+	text-decoration: none;
+	color: #B4BCCC;
+}
+.friend-link .friend-link-list a:hover {
+	text-decoration: underline;
+	color: #20A0FF;
+}
+.footer {
+	margin-top: 20px;
+	color: #999999;
+}
+.footer a {
+	color: #878D99;
+}
+.footer img {
+	position: relative;
+	top: 3px;
+}
+
+/* 导航栏菜单选中效果 */
+.isActive{
+	color: #20a0ff!important;
+}
+#app main .aside .is-active{
+	color: #475669;
+}
+/* 卡片 */
+.el-card{
+	overflow: visible!important;
+}
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 150px;
+    margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+}
+  
+.el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+}
+.clearfix {
+	clear: both;
+}

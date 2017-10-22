@@ -17,11 +17,12 @@ import javax.servlet.ServletRegistration.Dynamic;
 public class WebApplicationStartUp implements WebApplicationInitializer {
     private static final String SERVLET_NAME = "Spring-mvc";
 
-    private static final long MAX_FILE_UPLOAD_SIZE = 1024 * 1024 * 5; // 5 Mb
-
-    private static final int FILE_SIZE_THRESHOLD = 1024 * 1024; // After 1Mb
-
-    private static final long MAX_REQUEST_SIZE = -1L; // No request size limit
+    // 5 Mb
+    private static final long MAX_FILE_UPLOAD_SIZE = 1024 * 1024 * 5;
+    // After 1Mb
+    private static final int FILE_SIZE_THRESHOLD = 1024 * 1024;
+    // No request size limit
+    private static final long MAX_REQUEST_SIZE = -1L;
 
     /**
      * Loads configuration when web application starts up.
@@ -47,7 +48,7 @@ public class WebApplicationStartUp implements WebApplicationInitializer {
      * 通过自定义的配置类来实例化一个Web Application Context
      *
      * @param annotatedClasses
-     * @return
+     * @return AnnotationConfigWebApplicationContext
      */
     private AnnotationConfigWebApplicationContext createWebContext(Class<?>... annotatedClasses) {
         AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();

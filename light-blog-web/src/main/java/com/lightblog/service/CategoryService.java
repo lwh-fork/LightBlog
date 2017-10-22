@@ -1,5 +1,6 @@
 package com.lightblog.service;
 
+import com.common.service.BaseService;
 import com.lightblog.model.Category;
 
 /**

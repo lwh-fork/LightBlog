@@ -1,5 +1,6 @@
 package com.lightblog.service;
 
+import com.common.service.BaseService;
 import com.lightblog.model.Tag;
 
 /**
@@ -7,5 +8,5 @@ import com.lightblog.model.Tag;
  * @Author: Minsghan
  * @Date: Created in 23:02 2017/10/19
  */
-public interface TagService extends  BaseService<Tag> {
+public interface TagService extends BaseService<Tag> {
 }

@@ -25,20 +25,6 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.1</version>
-      <scope>provided</scope>
-    </dependency>
     <!-- spring核心包 -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -132,7 +118,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.1.41</version>
+      <version>1.2.40</version>
     </dependency>
 
     <dependency>
@@ -200,6 +186,11 @@
       <version>1.0.2</version>
     </dependency>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>RELEASE</version>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>2.5.1</version>
@@ -214,11 +205,6 @@
       <artifactId>jackson-annotations</artifactId>
       <version>2.5.1</version>
     </dependency>
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>RELEASE</version>
-      </dependency>
   </dependencies>
 
   <build>

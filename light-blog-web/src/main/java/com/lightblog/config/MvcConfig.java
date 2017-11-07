@@ -43,4 +43,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
+
+    // swagger与fastjson不兼容
+/*    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
+        converters.add(converter);
+    }*/
 }

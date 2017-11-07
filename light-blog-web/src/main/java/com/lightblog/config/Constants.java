@@ -22,4 +22,9 @@ public class Constants {
     public static final String AUTHORIZATION = "authorization";
 
     public static final String RESPONSE_OK = "OK!";
+
+    /**
+     * 缓存需要的分隔符
+     */
+    public static final String ELIMITER = ":";
 }

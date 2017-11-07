@@ -10,12 +10,26 @@
         <property name="maxWaitMillis" value="${redis.maxWait}" />
         <property name="testOnBorrow" value="true" />
     </bean>
- 
-    <bean id="JedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-      p:host-name="${redis.host}" p:port="${redis.port}" p:pool-config-ref="poolConfig"/>
 
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:host-name="${redis.host}" p:port="${redis.port}" p:pool-config-ref="poolConfig"/>
+
+    <!-- redis template definition -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-        <property name="connectionFactory" ref="JedisConnectionFactory" />
+        <!-- 设置 Redis 连接工厂-->
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <!-- 设置默认 Serializer ，包含 keySerializer & valueSerializer -->
+        <property name="defaultSerializer">
+            <bean class="com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer"/>
+        </property>
+        <!-- 单独设置 keySerializer -->
+        <property name="keySerializer">
+            <bean class="com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer"/>
+        </property>
+        <!-- 单独设置 valueSerializer -->
+        <property name="valueSerializer">
+            <bean class="com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer"/>
+        </property>
     </bean>
 
     <bean id="redisTokenManager" class="com.lightblog.manager.impl.RedisTokenManager">

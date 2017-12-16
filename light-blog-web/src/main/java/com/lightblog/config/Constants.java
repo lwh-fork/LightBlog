@@ -2,7 +2,7 @@ package com.lightblog.config;
 
 /**
  * @Description: The constant.
- * @Author: Minsghan
+ * @Author: mingshan
  * @Date: Created in 12:04 2017/10/14
  */
 public class Constants {
@@ -21,10 +21,47 @@ public class Constants {
      */
     public static final String AUTHORIZATION = "authorization";
 
+    /**
+     * 成功响应
+     */
     public static final String RESPONSE_OK = "OK!";
 
     /**
      * 缓存需要的分隔符
      */
     public static final String ELIMITER = ":";
+
+
+    // --------- JWT ---------------
+
+    /**
+     * The prefix of token
+     */
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    /**
+     * JWT ID
+     */
+    public static final  String JWT_ID = "jwt";
+
+    /**
+     * JWT - 加密密匙
+     */
+    public static final String JWT_SECRET = "walker";
+
+    /**
+     * token 保存时间
+     */
+    public static final int JWT_TTL = 3 * 24 * 60 * 60 * 1000;  //millisecond => 72 h
+
+    /**
+     * 刷新间隔
+     */
+    public static final int JWT_REFRESH_INTERVAL = 55 * 60 * 1000;  //millisecond
+
+    /**
+     * 刷新时间
+     */
+    public static final int JWT_REFRESH_TTL = 12 * 60 * 60 * 1000;  //millisecond => 12 h
+
 }

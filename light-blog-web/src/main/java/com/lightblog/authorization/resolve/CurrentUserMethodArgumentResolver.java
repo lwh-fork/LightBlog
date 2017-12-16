@@ -1,4 +1,4 @@
-package com.lightblog.resolve;
+package com.lightblog.authorization.resolve;
 
 import com.lightblog.annotation.CurrentUser;
 import com.lightblog.config.Constants;

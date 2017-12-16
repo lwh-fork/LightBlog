@@ -1,14 +1,15 @@
-package com.lightblog.manager.impl;
+package com.lightblog.authorization.manager.impl;
 
+import com.lightblog.authorization.check.RequestCheck;
+import com.lightblog.authorization.manager.TokenManager;
 import com.lightblog.config.Constants;
-import com.lightblog.manager.TokenManager;
 import com.lightblog.model.TokenModel;
+import com.lightblog.model.User;
+import com.lightblog.util.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,13 +23,14 @@ public class RedisTokenManager implements TokenManager {
 
     public void setRedisTemplate(RedisTemplate<Long, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        // 泛型设置成Long后必须更改对应的序列化方案
-        redisTemplate.setKeySerializer(new JdkSerializationRedisSerializer());
     }
 
     @Override
     public TokenModel creatToken(long userId) {
-        String token = UUID.randomUUID().toString().replace("-", "");
+        User user = new User();
+        user.setId(userId);
+        String subject = JWTUtil.generalSubject(user);
+        String token = JWTUtil.createJWT(userId, subject, Constants.JWT_TTL);
         TokenModel model = new TokenModel(userId, token);
         redisTemplate.boundValueOps(userId).set(token, Constants.TOKEN_EXPIRES_HOUR, TimeUnit.HOURS);
         return model;
@@ -64,20 +66,14 @@ public class RedisTokenManager implements TokenManager {
             return null;
         }
 
-        String[] params = authorization.split("_");
-        if (params.length != 2) {
+        User user = RequestCheck.getUserFromToken(authorization);
+        if (user == null) {
             return null;
         }
 
-        long userId;
-        try {
-            userId = Long.parseLong(params[0]);
-        } catch (NumberFormatException e) {
-            logger.error("RedisTokenManager occurs error : The userId of authorization string is not number!" );
-            return null;
-        }
+        long userId = user.getId();
 
-        String token = params[1];
+        String token = RequestCheck.extractJwtTokenFromAuthorizationHeader(authorization);
         TokenModel model = new TokenModel(userId, token);
         return model;
     }

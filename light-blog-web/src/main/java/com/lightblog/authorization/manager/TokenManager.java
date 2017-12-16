@@ -1,4 +1,4 @@
-package com.lightblog.manager;
+package com.lightblog.authorization.manager;
 
 import com.lightblog.model.TokenModel;
 

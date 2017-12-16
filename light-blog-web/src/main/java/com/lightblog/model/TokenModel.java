@@ -6,10 +6,8 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 
 /**
- * @Description:
  * @Author: Minsghan
  * @Date: Created in 23:17 2017/10/13
- * @Modified By:
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

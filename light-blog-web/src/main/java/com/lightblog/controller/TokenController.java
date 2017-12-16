@@ -2,14 +2,15 @@ package com.lightblog.controller;
 
 import com.lightblog.annotation.Authorization;
 import com.lightblog.annotation.CurrentUser;
+import com.lightblog.authorization.manager.TokenManager;
 import com.lightblog.config.Constants;
 import com.lightblog.exception.ParameterException;
 import com.lightblog.exception.ServerException;
-import com.lightblog.manager.TokenManager;
 import com.lightblog.model.ResultModel;
 import com.lightblog.model.TokenModel;
 import com.lightblog.model.User;
 import com.lightblog.service.UserService;
+import com.lightblog.util.MD5Util;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiImplicitParam;
 import com.wordnik.swagger.annotations.ApiImplicitParams;
@@ -46,7 +47,7 @@ public class TokenController extends BaseController {
      */
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value="登录处理", httpMethod="POST", notes="Login")
-    public ResponseEntity<ResultModel> login(@RequestParam String userName,
+    public ResponseEntity<TokenModel> login(@RequestParam String userName,
                                              @RequestParam String password) {
         ResultModel result = new ResultModel();
 
@@ -55,8 +56,8 @@ public class TokenController extends BaseController {
         }
 
         User user = userService.findByUserName(userName);
-
-        if (user == null || !password.equals(user.getPassword())) {
+        String newPassword = MD5Util.md5(password, userName);
+        if (user == null || !newPassword.equals(user.getPassword())) {
             result.setCode(1001);
             result.setMessage("UserName or password is incorrect.");
             logger.info("UserName or password is incorrect.");
@@ -64,9 +65,7 @@ public class TokenController extends BaseController {
         }
         
         TokenModel token = tokenManager.creatToken(user.getId());
-        result.setMessage(Constants.RESPONSE_OK);
-        result.setContent(token);
-        return new ResponseEntity<ResultModel>(result, HttpStatus.OK);
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     /**

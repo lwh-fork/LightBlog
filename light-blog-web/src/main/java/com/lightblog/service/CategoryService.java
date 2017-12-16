@@ -5,7 +5,7 @@ import com.lightblog.model.Category;
 
 /**
  * @Description:
- * @Author: Minsghan
+ * @Author: mingshan
  * @Date: Created in 22:57 2017/10/19
  */
 public interface CategoryService extends BaseService<Category> {

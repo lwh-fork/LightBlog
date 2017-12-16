@@ -14,9 +14,9 @@
 
     <context:annotation-config/>
     <!-- 扫描包 -->
-    <context:component-scan base-package="com.lightblog.**.manager"></context:component-scan>
-    <context:component-scan base-package="com.lightblog.**.resolve"></context:component-scan>
-    <context:component-scan base-package="com.lightblog.**.interceptor"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.authorization.manager"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.authorization.resolve"></context:component-scan>
+    <context:component-scan base-package="com.lightblog.authorization.interceptor"></context:component-scan>
     <context:component-scan base-package="com.lightblog.**.handler"></context:component-scan>
     <context:component-scan base-package="com.lightblog.**.service.impl"></context:component-scan>
     <context:component-scan base-package="com.lightblog.**.aspect"></context:component-scan>

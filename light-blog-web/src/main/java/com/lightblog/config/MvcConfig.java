@@ -1,7 +1,7 @@
 package com.lightblog.config;
 
-import com.lightblog.interceptor.AuthorizationInterceptor;
-import com.lightblog.resolve.CurrentUserMethodArgumentResolver;
+import com.lightblog.authorization.interceptor.AuthorizationInterceptor;
+import com.lightblog.authorization.resolve.CurrentUserMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

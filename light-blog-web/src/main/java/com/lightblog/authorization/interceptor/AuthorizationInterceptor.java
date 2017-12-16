@@ -1,8 +1,8 @@
-package com.lightblog.interceptor;
+package com.lightblog.authorization.interceptor;
 
 import com.lightblog.annotation.Authorization;
+import com.lightblog.authorization.manager.TokenManager;
 import com.lightblog.config.Constants;
-import com.lightblog.manager.TokenManager;
 import com.lightblog.model.TokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,12 +34,13 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
         HandlerMethod handlerMethod = (HandlerMethod)handler;
         Method method = handlerMethod.getMethod();
+
         // Gets authorization string from request header.
         String authorization = request.getHeader(Constants.AUTHORIZATION);
+
         // Gets the model of Token from authorization string.
         TokenModel token = tokenManager.getToken(authorization);
         // Checks out the token that is from Redis,
-        // The token includes userId and UUID with "_".
         if (tokenManager.checkToken(token)) {
             // Puts userId into request.
             request.setAttribute(Constants.CURRENT_USER_ID, token.getUserId());

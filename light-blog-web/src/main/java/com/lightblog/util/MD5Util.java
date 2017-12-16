@@ -4,7 +4,7 @@ import org.springframework.util.DigestUtils;
 
 /**
  * Encryption util with MD5.
- * @Author: Minsghan
+ * @Author: mingshan
  * @Date: Created in 23:50 2017/10/19
  */
 public class MD5Util {

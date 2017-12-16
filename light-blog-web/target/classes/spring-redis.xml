@@ -32,7 +32,7 @@
         </property>
     </bean>
 
-    <bean id="redisTokenManager" class="com.lightblog.manager.impl.RedisTokenManager">
+    <bean id="redisTokenManager" class="com.lightblog.authorization.manager.impl.RedisTokenManager">
         <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
 </beans>

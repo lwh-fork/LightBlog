@@ -8,8 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Description:
- * @Author: Minsghan
+ * @Author: mingshan
  * @Date: Created in 21:40 2017/10/10
  * @Modified By:
  */

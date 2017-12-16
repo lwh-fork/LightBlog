@@ -5,7 +5,7 @@ import com.lightblog.model.User;
 
 /**
  * @Description:
- * @Author: Minsghan
+ * @Author: mingshan
  * @Date: Created in 16:11 2017/10/3
  */
 public interface UserService extends BaseService<User> {
